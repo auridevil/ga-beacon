@@ -13,8 +13,6 @@ import (
 	"os"
 	"strings"
 	"time"
-
-	"google.golang.org/appengine/delay"
 )
 
 const beaconURL = "http://www.google-analytics.com/collect"
@@ -63,8 +61,6 @@ func generateUUID(cid *string) error {
 	*cid = hex.EncodeToString(b)
 	return nil
 }
-
-var delayHit = delay.Func("collect", logHit)
 
 func sendToGA(c context.Context, ua string, ip string, cid string, values url.Values) error {
 	client := &http.Client{}
@@ -165,7 +161,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("CID", cid)
 
 		logHit(c, params, query, r.Header.Get("User-Agent"), r.RemoteAddr, cid)
-		// delayHit.Call(c, params, r.Header.Get("User-Agent"), cid)
 	}
 
 	// Write out GIF pixel or badge, based on presence of "pixel" param.

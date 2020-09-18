@@ -1,11 +1,11 @@
-runtime: go113
+runtime: go114
 
 default_expiration: "1d"
 
 handlers:
-- url: /favicon\.ico
-  static_files: static/favicon.ico
-  upload: static/favicon\.ico
+  - url: /favicon\.ico
+    static_files: static/favicon.ico
+    upload: static/favicon\.ico
 
-- url: /.*
-  script: auto
+  - url: /.*
+    script: auto
